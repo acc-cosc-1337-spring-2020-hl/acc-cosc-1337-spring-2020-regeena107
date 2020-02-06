@@ -3,13 +3,13 @@
 
 int gross_pay(int hours, int hourly_rate)
 {
-	if (hours <= 40);
+	if (hours <= 40)
 	{
 		return hours * hourly_rate;
 	}
-	else (hours >= 40);
+	else
 	{
-		return (hours * 1.5 * hourly_rate) + (hours * hourly_rate)
+		return ((hours-40) * 1.5 * hourly_rate) + (40 * hourly_rate);
 	}
 }
 
