@@ -1,4 +1,8 @@
-#write includes statements
+#include "loops.h"
+#include<iostream>
+
+using std::cout; using std::cin;
+
 
 //write using statements for cin and cout
 
@@ -10,6 +14,12 @@ factorial.  Also, loop continues as long as user wants to.
 */
 int main() 
 {
+	int num 
+
+	cout << "Enter an interger: ";
+	cin >> num;
+	
+	cout << factorial;
 
 	return 0;
 }
