@@ -28,5 +28,5 @@ void loop_vector_w_index_ref(vector <int> nums);
 Write function prototype for function loop_vector_w_index with a vector of int const pass by reference parameter.
 */
 
-loop_vector_w_index_const(const vector<int>& nums);
+void loop_vector_w_index_const(const vector<int>& nums);
 

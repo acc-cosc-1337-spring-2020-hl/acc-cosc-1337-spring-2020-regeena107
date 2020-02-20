@@ -1,3 +1,36 @@
-add_executable(hw_02_tests "02_decisions_tests.cpp")
-target_link_libraries(hw_02_tests hw_02_library)
-add_test(NAME hw_02_tests COMMAND hw_02_tests -s)
+cmake_minimum_required(VERSION 3.8)
+
+project("cosc1337")
+include_directories(inc)
+
+MACRO(SUBDIRLIST result curdir)
+  FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+  SET(dirlist "")
+  FOREACH(child ${children})
+    IF(IS_DIRECTORY ${curdir}/${child})
+      LIST(APPEND dirlist ${child})
+    ENDIF()
+  ENDFOREACH()
+  SET(${result} ${dirlist})
+ENDMACRO()
+
+MACRO(HEADER_DIRECTORIES return_list)
+    FILE(GLOB_RECURSE new_list *.h)
+    SET(dir_list "")
+    FOREACH(file_path ${new_list})
+        GET_FILENAME_COMPONENT(dir_path ${file_path} PATH)
+        SET(dir_list ${dir_list} ${dir_path})
+    ENDFOREACH()
+    LIST(REMOVE_DUPLICATES dir_list)
+    SET(${return_list} ${dir_list})
+ENDMACRO()
+
+HEADER_DIRECTORIES(header_list)
+
+include_directories(${header_list})
+
+ADD_SUBDIRECTORY(src)
+
+enable_testing()
+ADD_SUBDIRECTORY(test)
+

@@ -4,6 +4,7 @@
 #include "value_ref.h"
 #include "value_ref.cpp"
 #include "for_ranged.h"
+#include "vec.h"
 #include <string>
 
 using std::string;
@@ -43,4 +44,24 @@ TEST_CASE("Test for ranged loop by reference")
 	loop_string_w_auto_ref(name);
 
 	REQUIRE(name == "zzz");
+}
+
+TEST_CASE("Test loop vector with index")
+{
+	vector<int> nums{9, 10, 99, 5, 67};
+	vector<int> expected{ 9, 10, 99, 5, 67};
+
+	loop_vector_w_index(nums);
+
+	REQUIRE(nums == expected);
+}
+
+TEST_CASE("Test loop vector with index ref")
+{
+	vector<int> nums{ 9, 10, 99, 5, 67 };
+	vector<int> expected{ 0, 0, 0, 0, 0 };
+
+	loop_vector_w_index_ref(nums);
+
+	REQUIRE(nums == expected);
 }

@@ -15,6 +15,8 @@ void loop_vector_w_index(vector<int> nums)
 	for (int i = 0; i < nums.size(); ++i)
 	{
 		cout << nums[i] << "\n";
+
+		nums[i] = 0;
 	}
 }
 
@@ -28,6 +30,7 @@ void loop_vector_w_index_ref(vector<int> nums)
 	for (auto n : nums)
 	{
 		cout << n << "\n";
+		n = 0;
 	}
 }
 
