@@ -7,8 +7,8 @@ TEST_CASE("Verify Test Configuration", "verification") {
 
 TEST_CASE ("Test GC content function")
 {
-    REQUIRE(get_gc_content(AGCTATAG) == 37.5);
-    REQUIRE(get_gc_content(CGCTATAG) == 50.0);
+    REQUIRE(get_gc_content(AGCTATAG) == .375);
+    REQUIRE(get_gc_content(CGCTATAG) == .50);
 }
 
 TEST_CASE ("Test reverse function")
