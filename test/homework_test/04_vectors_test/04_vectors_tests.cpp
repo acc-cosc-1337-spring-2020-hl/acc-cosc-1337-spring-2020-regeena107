@@ -7,8 +7,9 @@ TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
 }
 
-TEST_CASE("Rectangles")
+TEST_CASE("test Rectangles")
 {
-	Rectangle (4, 5);
-	REQUIRE(get_area() == 20);
+	Rect rectangle(4, 5);
+	REQUIRE(rectangle.get_area() == 20);
+	
 }
