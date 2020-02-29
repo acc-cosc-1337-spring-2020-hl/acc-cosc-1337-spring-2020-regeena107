@@ -15,43 +15,44 @@ and display them to screen.
 Program continues until user decides to exit.
 
 */
-int main() 
+int main()
 {
-    int choice;
-    cout << "Press 1 to get max from vectors.\n";
-    cout << "Press 2 to get primes.\n";
-    cout << "Press 3 to exit.\n";
-    cin >> choice;
+	int choice;
+	cout << "Press 1 to get max from vectors.\n";
+	cout << "Press 2 to get primes.\n";
+	cout << "Press 3 to exit.\n";
+	cin >> choice;
 
-    if (choice == 1)
-    {
-        vector<int> vec;
-        int i = 1;
-        while (i <= 5)
-        {
-            int num;
-            cout << "Num" << i << ":\n";
-            vec.push_back(num);
-            ++i;
-        }
-        int max = get_max_from_vector(vec);
-        cout << "Max number from vectors is: " << max << "\n";
-    }
+	if (choice == 1)
+	{
+		vector<int> vec;
+		int i = 1;
+		while (i <= 5)
+		{
+			int num;
+			cout << "Num" << i << ":\n";
+			vec.push_back(num);
+			++i;
+		}
+		int max = get_max_from_vector(vec);
+		cout << "Max number from vectors is: " << max << "\n";
+	}
 
-    else if
-        {
-        int num;
-        cout << "Enter a number: \n";
-        cin >> num;
+	else if(choice == 2)
+	{
+		int num;
+		cout << "Enter a number: \n";
+		cin >> num;
 
-        vector<int> vector_of_primes(num);
-        cout << "List of primes: \n";
+		auto primes = vector_of_primes(num);
+		cout << "List of primes: \n";
 
-        for (int prime : primes) {
-            cout << prime << "\n";
-        }
-        cout << "\n";
-        }
+		for (int prime : primes) {
+			cout << prime << "\n";
+		}
+		cout << "\n";
+	}
 
-return 0;
+
+	return 0;
 }

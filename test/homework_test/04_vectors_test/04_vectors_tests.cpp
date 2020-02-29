@@ -1,5 +1,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
+#include"vectors.h"
+using std::vector;
 
 TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
@@ -17,13 +19,13 @@ TEST_CASE(" Verify if is_prime" )
 TEST_CASE(" Verify if get_max_from_vector")
 {
     vector<int> vec1 = { 3, 8, 1, 99, 1000 };
-    REQUIRE(get_get_max_from_vector(vec1) == 1000);
+    REQUIRE(get_max_from_vector(vec1) == 1000);
 
     vector<int> vec2 = { 15, 12, 11, 99, 88 };
-    REQUIRE(get_get_max_from_vector(vec2) == 99);
+    REQUIRE(get_max_from_vector(vec2) == 99);
 
     vector<int> vec3 = { 150, 120, 11, 990, 88888 };
-    REQUIRE(get_get_max_from_vector(vec3) == 88888);
+    REQUIRE(get_max_from_vector(vec3) == 88888);
 
 }
 
