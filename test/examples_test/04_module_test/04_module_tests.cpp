@@ -66,8 +66,6 @@ TEST_CASE("Test default constructor account already open")
 TEST_CASE("Test default constructor open account with < 25")
 {
 	BankAccount account;
-
-	account.open(24);
 	REQUIRE_THROWS_AS(account.open(24), InvalidAmount);
 
 
