@@ -45,3 +45,27 @@ void BankAccount::open(int amount)
 		throw InvalidAmount("A deposit of at least 25. ");
 	}
 }
+
+double BankAccount::rate = init_rate();
+
+void display_balance(const BankAccount & b)
+{
+	std::cout << "\nBalance is: " << b.balance << "\n";
+}
+
+std::ostream & operator<<(std::ostream & out, const BankAccount & b)
+{
+	out << "\nBalance is: " << b.balance << "\n";
+
+	return out;
+}
+
+std::istream & operator>>(std::istream & in, BankAccount & b)
+{
+	int amount;
+	std::cout << "Enter amount to deposit: ";
+	in >> amount;
+	b.deposit(amount);
+
+	return in;
+}

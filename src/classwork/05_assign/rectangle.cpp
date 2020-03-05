@@ -11,3 +11,10 @@ void Rect::calculate_area()
 {
 	area = width * height;
 }
+
+std::ostream & operator<<(std::ostream & out, const Rect & b)
+{
+	out << "\nThe area is: " << b.area << "\n";
+
+	return out;
+}
