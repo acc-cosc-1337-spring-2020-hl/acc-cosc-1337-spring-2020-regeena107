@@ -25,7 +25,7 @@ int main()
 
 	for (auto r : rectangle) 
 	{
-		cout << "Area: " << r.get_area() << "\n";
+		cout << "Area: " << r << "\n";
 		total += r.get_area();
 	}
 
