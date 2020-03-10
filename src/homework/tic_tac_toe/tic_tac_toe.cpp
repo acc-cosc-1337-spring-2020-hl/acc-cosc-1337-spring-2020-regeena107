@@ -1,82 +1,99 @@
-//cpp
+#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+#include "catch.hpp"
 #include "tic_tac_toe.h"
-#include <iostream>;
-using std::cout;
-bool TicTacToe::game_over()
-{
-	return check_board_full();
+
+TEST_CASE("Verify Test Configuration", "verification") {
+	REQUIRE(true == true);
 }
 
-void TicTacToe::start_game(std::string first_player)
+TEST_CASE("Test can’t call mark board before start game")
 {
-	if (first_player == "X" || first_player == "O")
-	{
-		first_player;
-	}
-	else
-	{
-		throw Error("Player must be X or O\n");
-	}
-	player = first_player;
-	clear_board();
+
+	TicTacToe game;
+	REQUIRE_THROWS_AS(game.mark_board(1), Error);
+	
 }
 
-void TicTacToe::mark_board(int position)
+TEST_CASE("Test start game accepts only X or O")
 {
-	if (position <1 || position > 9)
-	{
-		throw Error("Postion must be 1-9\n");
-	}
-	else if (player == "")
-	{
-		throw Error("Must start game first\n");
-	}
-	else
-	{
-		pegs[position - 1] = player;
-		set_next_player();	
-	}
+
+	TicTacToe game;
+	REQUIRE_THROWS_AS(game.start_game("Y"), Error);
+
 }
 
-void TicTacToe::display_board() const
+TEST_CASE("Test set first player to X")
 {
-	for (int i = 0; i < 9; i += 3)
-	{
-		cout << pegs[i] << "|" << pegs[i + 2] << "|" << pegs[i + 2] << "\n";
 
-	}
+	TicTacToe game;
+	game.start_game("X");
+	REQUIRE(game.get_player() == "X");
+
 }
 
-
-
-bool TicTacToe::check_board_full()
+TEST_CASE("Test set first player to O")
 {
-	for (auto peg : pegs)
-	{
-		if (peg == " ")
-		{
-			return false;
-		}
-	}
-	return true;
+
+	TicTacToe game;
+	game.start_game("O");
+	REQUIRE(game.get_player() == "O");
+
 }
 
-void TicTacToe::set_next_player()
+TEST_CASE("Test start game with X game flow")
 {
-	if (player == "X")
-	{
-		player = "O";
-	}
-	else
-	{
-		player ="X";
-	}
+
+	TicTacToe game;
+	game.start_game("X");
+	REQUIRE(game.get_player() == "X");
+	
+	game.mark_board(4);
+	REQUIRE(game.get_player() == "O");
+
 }
 
-void TicTacToe::clear_board()
+TEST_CASE("Test start game with O game flow")
 {
-	for (auto &peg : pegs)
-	{
-		peg = " ";
-	}
+
+	TicTacToe game;
+	game.start_game("O");
+	REQUIRE(game.get_player() == "O");
+	
+	game.mark_board(2);
+	REQUIRE(game.get_player() == "X");
+
+}
+
+TEST_CASE("Test game over when board full")
+{
+	TicTacToe game;
+	game.start_game("X");
+	
+	game.mark_board(1);
+	REQUIRE(game.game_over() == false);
+	
+	game.mark_board(2);
+	REQUIRE(game.game_over() == false);
+	
+	game.mark_board(3);
+	REQUIRE(game.game_over() == false);
+	
+	game.mark_board(5);
+	REQUIRE(game.game_over() == false);
+	
+	game.mark_board(4);
+	REQUIRE(game.game_over() == false);
+	
+	game.mark_board(6);
+	REQUIRE(game.game_over() == false);
+	
+	game.mark_board(8);
+	REQUIRE(game.game_over() == false);
+	
+	game.mark_board(7);
+	REQUIRE(game.game_over() == false);
+	
+	game.mark_board(9);
+	REQUIRE(game.game_over() == true);
+	
 }
