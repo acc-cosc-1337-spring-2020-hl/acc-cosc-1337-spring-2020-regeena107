@@ -1,99 +1,161 @@
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
-#include "catch.hpp"
 #include "tic_tac_toe.h"
+#include<iostream>
 
-TEST_CASE("Verify Test Configuration", "verification") {
-	REQUIRE(true == true);
+
+void TicTacToe::start_game(string first_player)
+{
+	if ((first_player == "X" || first_player == "O"))
+	{
+		clear_board();
+		player = first_player;
+	}
+	else if (player == "")
+	{
+		throw Error("Must begin game!");
+	}
+	else
+	{
+		throw Error("Must use X or O!");
+	}
 }
 
-TEST_CASE("Test can’t call mark board before start game")
+void TicTacToe::mark_board(int position)
 {
-
-	TicTacToe game;
-	REQUIRE_THROWS_AS(game.mark_board(1), Error);
-	
+	if (player == "") 
+	{
+		throw Error("Must start game first.");
+	}
+	if (position >= 1 && position <= 9)
+	{
+		pegs[position - 1] = player;
+		set_next_player();
+	}
+	else
+	{
+		throw Error("Must be between 1 and 9!");
+	}
 }
 
-TEST_CASE("Test start game accepts only X or O")
+void TicTacToe::set_next_player()
 {
-
-	TicTacToe game;
-	REQUIRE_THROWS_AS(game.start_game("Y"), Error);
-
+	if (player == "O")
+	{
+		player = "X";
+	}
+	else if (player == "X")
+	{
+		player = "O";
+	}
 }
 
-TEST_CASE("Test set first player to X")
+bool TicTacToe::check_board_full()
 {
-
-	TicTacToe game;
-	game.start_game("X");
-	REQUIRE(game.get_player() == "X");
-
+	for (auto peg : pegs)
+	{
+		if (peg == " ")
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
-TEST_CASE("Test set first player to O")
+void TicTacToe::clear_board()
 {
-
-	TicTacToe game;
-	game.start_game("O");
-	REQUIRE(game.get_player() == "O");
-
+	for (auto &peg : pegs)
+	{
+		peg = " ";
+	}
 }
 
-TEST_CASE("Test start game with X game flow")
+void TicTacToe::set_winner()
 {
-
-	TicTacToe game;
-	game.start_game("X");
-	REQUIRE(game.get_player() == "X");
-	
-	game.mark_board(4);
-	REQUIRE(game.get_player() == "O");
-
+	if (player == "O")
+	{
+		winner = "X";
+	}
+	else if (player == "X")
+	{
+		winner = "O";
+	}
 }
 
-TEST_CASE("Test start game with O game flow")
+bool TicTacToe::check_column_win()
 {
-
-	TicTacToe game;
-	game.start_game("O");
-	REQUIRE(game.get_player() == "O");
-	
-	game.mark_board(2);
-	REQUIRE(game.get_player() == "X");
-
+	if (pegs[0] == player && pegs[3] == player && pegs[6] == player)
+	{
+		return true;
+	}
+	else if (pegs[1] == player && pegs[4] == player && pegs[7] == player)
+	{
+		return true;
+	}
+	else if (pegs[2] == player && pegs[5] == player && pegs[8] == player)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
-TEST_CASE("Test game over when board full")
+bool TicTacToe::check_row_win()
 {
-	TicTacToe game;
-	game.start_game("X");
-	
-	game.mark_board(1);
-	REQUIRE(game.game_over() == false);
-	
-	game.mark_board(2);
-	REQUIRE(game.game_over() == false);
-	
-	game.mark_board(3);
-	REQUIRE(game.game_over() == false);
-	
-	game.mark_board(5);
-	REQUIRE(game.game_over() == false);
-	
-	game.mark_board(4);
-	REQUIRE(game.game_over() == false);
-	
-	game.mark_board(6);
-	REQUIRE(game.game_over() == false);
-	
-	game.mark_board(8);
-	REQUIRE(game.game_over() == false);
-	
-	game.mark_board(7);
-	REQUIRE(game.game_over() == false);
-	
-	game.mark_board(9);
-	REQUIRE(game.game_over() == true);
-	
+	if (pegs[0] == player && pegs[1] == player && pegs[2] == player)
+	{
+		return true;
+	}
+	else if (pegs[3] == player && pegs[4] == player && pegs[5] == player)
+	{
+		return true;
+	}
+	else if (pegs[6] == player && pegs[7] == player && pegs[8] == player)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool TicTacToe::check_diagnol_win()
+{
+	if (pegs[0] == player && pegs[4] == player && pegs[8] == player)
+	{
+		return true;
+	}
+	else if (pegs[2] == player && pegs[4] == player && pegs[6] == player)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+string TicTacToe::get_player() const
+{
+	return player;
+}
+
+void TicTacToe::display_board() const
+{
+	for(int i = 0; i <= 9; i += 3)
+	{
+		std::cout << pegs[i] << "|" << pegs[i+1] << "|" <<pegs[i+2] << "\n";
+	}
+}
+
+string Error::get_message()
+{
+	return message;
+}
+
+bool TicTacToe::game_over()
+{
+	return check_board_full();
 }
