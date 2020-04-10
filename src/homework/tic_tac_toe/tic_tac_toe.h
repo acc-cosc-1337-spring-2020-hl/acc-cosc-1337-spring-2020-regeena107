@@ -30,7 +30,8 @@ class Error
 {
 public:
 	Error(string msg) : message{ msg } {};
-	string get_message() const { return message; }
+	string get_message();
 private:
-	string message;
-};
+	string message;};
+
+#endif // !TIC_TAC_TOE_H
