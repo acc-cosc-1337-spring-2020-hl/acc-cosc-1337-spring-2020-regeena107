@@ -1,9 +1,12 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#ifndef TIC_TAC_TOE_H
+#define TIC_TAC_TOE_H
 
 using std::string;
 using std::cout;
+
 class TicTacToe
 {
 public:
@@ -13,17 +16,21 @@ public:
 	string get_player() const { return player; }
 	void display_board() const;
 	string get_winner() { return winner; }
+	friend std::ostream& operator<<(std::ostream& out, const TicTacToe& t);
+	friend std::istream& operator>>(std::istream& in, TicTacToe& t);
+	
 private:
 	bool check_board_full();
-	void set_next_player();
-	string player;
-	std::vector<string> pegs{ 9, " " };
-	void clear_board();
-	string winner;
-	void set_winner();
 	bool check_row_win();
 	bool check_column_win();
 	bool check_diagonal_win();
+	string player;
+	string winner;
+	std::vector<string> pegs{ 9, " " };
+	void set_next_player();
+	void set_winner();
+	void clear_board();
+	
 };
 
 class Error
@@ -32,6 +39,7 @@ public:
 	Error(string msg) : message{ msg } {};
 	string get_message();
 private:
-	string message;};
+	string message;
+};
 
 #endif // !TIC_TAC_TOE_H
