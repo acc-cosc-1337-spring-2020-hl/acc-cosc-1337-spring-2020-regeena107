@@ -37,7 +37,7 @@ class Error
 {
 public:
 	Error(string msg) : message{ msg } {};
-	string get_message();
+	string get_message() { return message; }
 private:
 	string message;
 };

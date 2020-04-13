@@ -199,7 +199,7 @@ void TicTacToe::display_board() const
 
 }
 
-std::ostream & operator<<(std::ostream & out, TicTacToe& c)
+std::ostream & operator<<(std::ostream & out, const TicTacToe& c)
 {
 	out << "\n";
 	for (std::size_t i = 0; i < 9; i += 3) 
