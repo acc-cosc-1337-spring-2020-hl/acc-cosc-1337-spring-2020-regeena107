@@ -244,3 +244,32 @@ TEST_CASE("Test game over when board full")
 	game.mark_board(9);
 	REQUIRE(game.game_over() == true);
 }
+
+TEST_CASE("Test tie")
+{
+	TicTacToe3 board1;
+	std::reference_wrapper<TicTacToe> board = board1;
+
+	board.get().start_game("X");
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(1);//X         
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(2);//O          
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(4);//X          
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(7);//O          
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(5);//X 
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(6);//O 
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(3);//X 
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(9);//O 
+	REQUIRE(board.get().game_over() == false);
+	board.get().mark_board(8);//X 
+	//no winner
+	REQUIRE(board.get().game_over() == true);
+	REQUIRE(board.get().get_winner() == "C");
+}
