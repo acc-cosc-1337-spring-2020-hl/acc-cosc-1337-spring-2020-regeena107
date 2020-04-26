@@ -10,6 +10,7 @@ using std::cout;
 class TicTacToe
 {
 public:
+	TicTacToe(int s) : pegs(s*s, " ") {}
 	bool game_over();
 	void mark_board(int position);
 	void start_game(string first_player);
@@ -18,15 +19,17 @@ public:
 	string get_winner() { return winner; }
 	friend std::ostream& operator<<(std::ostream& out, const TicTacToe& t);
 	friend std::istream& operator>>(std::istream& in, TicTacToe& t);
-	
+
+protected:
+	virtual bool check_row_win() = 0;
+	virtual bool check_column_win()=0;
+	virtual bool check_diagonal_win()=0;
+	std::vector<string> pegs{ 9, " " };
+
 private:
 	bool check_board_full();
-	bool check_row_win();
-	bool check_column_win();
-	bool check_diagonal_win();
 	string player;
 	string winner;
-	std::vector<string> pegs{ 9, " " };
 	void set_next_player();
 	void set_winner();
 	void clear_board();
