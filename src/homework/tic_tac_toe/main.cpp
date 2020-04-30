@@ -1,79 +1,86 @@
-#include<iostream>
-#include<functional>
-#include "tic_tac_toe_manager.h"
+#include "tic_tac_toe.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
+#include "tic_tac_toe_manager.h"
+#include <iostream>
 
-using std::cout; 
-using std::cin; 
-using std::string;
+using std::cout; using std::cin; using std::string;
+using std::make_unique;
 
-int main()
+int main() 
 {
-	std::unique_ptr<TicTacToeManager> manager = std::make_unique<TicTacToeManager>();
-	string cont;
+	int choice = 0;
+	TicTacToeData data;
+	unique_ptr<TicTacToeManager> game_manager = make_unique<TicTacToeManager>(data);
+	
+    do {
 
-	do
-	{
-		int game_type;
-		cout << "\nTictactoe 3 or 4?";
-		cin >> game_type;
-		std::unique_ptr<TicTacToe> game;
-		
-
-		if (game_type == 3)
-		{
-			game = std::make_unique<TicTacToe3>();
+		unique_ptr<TicTacToe> game;
+	
+		int size;
+		cout << "enter 4 for 4x4 game or any other key for default 3x3 game \n";
+		cin >> size;
+		int index = 0;
+		if (size == 4) {
+			
+			game = make_unique<TicTacToe4>();
+			
 		}
-		else if (game_type == 4)
-		{
-			game = std::make_unique<TicTacToe3>();
+		else { 
+			game = make_unique<TicTacToe3>();
 		}
 
-		string player = "Y";
-
-		while (!(player == "O" || player == "X"))
-		{
-			try
-			{
-				cout << "Enter player: ";
-				cin >> player;
-
-				game->start_game(player);
-			}
-			catch (Error e)
-			{
-				cout << e.get_message();
+		bool first_player_success = false;
+		while(!first_player_success){
+			string first_player;
+			try {
+				cout<< "Enter X or O to choose the first player \n";
+				cin >> first_player;
+				game->start_game(first_player);
+				first_player_success = true;
+			}catch (XOException &ex){
+				cout << ex.get_message() << "\n";
+				cout << "try again \n";
 			}
 		}
 
-		int choice = 1;
+		while (!game->game_over()) {
+			
+			cout << game->get_player() + "'s turn \n";
+			bool mark_board_success = false;
 
-		do
-		{
-			try
-			{
-				cin >> *game;
+			while (!mark_board_success) {
+
+				try {
+					cin >> *game;
+					mark_board_success = true;
+
+				}
+				catch (XOException &ex) {
+					cout << ex.get_message() << "\n";
+					cout << "try again \n";
+				}
+
 				cout << *game;
+				
+				if (game->game_over()) {
+					cout << "winner : " << game->get_winner() <<"\n";
+				}
 			}
-			catch (Error e)
-			{
-				cout << e.get_message();
-			}
+		}
+		
+		game_manager->save_game(game);
+		cout << *game_manager;
+		
+        cout << "\n";
+        cout << "Enter 0 to continue the game \n";
+        cin >> choice;
+		if (choice != 0) {
+			cout << game_manager;
+		}
+        cout << "\n";
 
-		} while (!game->game_over());
-
-		cout << "\nWinner: " << game->get_winner() << "\n";
-
-		manager->save_game(game);
-
-
-		cout << "Enter Y to play again: ";
-		cin >> cont;
-
-	} while (cont == "Y");
-
-	cout << *manager;
+    } while( choice == 0 );
 
 	return 0;
 }
