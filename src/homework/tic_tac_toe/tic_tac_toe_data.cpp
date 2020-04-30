@@ -2,8 +2,6 @@
 #include "tic_tac_toe_data.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
-
-//cpp
 #include<fstream>
 #include<iostream>
 
@@ -26,15 +24,12 @@ void TicTacToeData::save_games(std::vector<std::unique_ptr<TicTacToe>>& games)
 std::vector<std::unique_ptr<TicTacToe>> TicTacToeData::get_games() const
 {
 	std::vector<std::unique_ptr<TicTacToe>> boards;
-
 	std::ifstream read_file(file_name);
-
 	std::vector<std::string> pegs;
+	
 	//int size = pegs.size();
 	std::string winner;
-
 	std::string line;
-
 
 	if (read_file.is_open())
 	{
