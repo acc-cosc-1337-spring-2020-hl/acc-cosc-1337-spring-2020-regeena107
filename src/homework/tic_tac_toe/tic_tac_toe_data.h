@@ -1,4 +1,7 @@
 //h
+#ifndef TIC_TAC_TOE_DATA_H
+#define  TIC_TAC_TOE_DATA_H
+
 #include "tic_tac_toe.h"
 #include <vector>
 #include <string>
@@ -8,7 +11,7 @@
 class TicTacToeData
 {
 public:
-	void save_pegs(const std::vector<std::unique_ptr<TicTacToe>>& games);
+	void save_games(const std::vector<std::unique_ptr<TicTacToe>>& games);
 	std::vector<std::unique_ptr<TicTacToe>> get_games()const;
 	
 private:

@@ -76,7 +76,7 @@ int main()
         cout << "Enter 0 to continue the game \n";
         cin >> choice;
 		if (choice != 0) {
-			cout << game_manager;
+			cout << *game_manager;
 		}
         cout << "\n";
 

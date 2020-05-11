@@ -2,8 +2,10 @@
 #define TIC_TAC_TOE_H
 #include <string>
 #include<vector>
-
+#include<iostream>
 using std::string;
+using std::ostream;
+using std::istream;
 
 class TicTacToe {
 
@@ -16,7 +18,7 @@ public:
 	bool game_over();
 	string get_winner() { return winner; }
 	std::vector<string> get_pegs() const { return pegs; }
-	friend std::ostream& operator<<(std::ostream & out, TicTacToe &game);
+	friend std::ostream& operator<<(std::ostream & out, const TicTacToe &game);
 	friend std::istream& operator>>(std::istream & in, TicTacToe &game);
 	
 protected:

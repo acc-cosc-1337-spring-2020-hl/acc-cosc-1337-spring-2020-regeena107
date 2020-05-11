@@ -1,3 +1,4 @@
+#include "tic_tac_toe_data.h"
 //cpp
 #include "tic_tac_toe_data.h"
 #include "tic_tac_toe_3.h"
@@ -5,7 +6,7 @@
 #include<fstream>
 #include<iostream>
 
-void TicTacToeData::save_games(std::vector<std::unique_ptr<TicTacToe>>& games)
+void TicTacToeData::save_games(const std::vector<std::unique_ptr<TicTacToe>>& games)
 {
 	std::ofstream file_out(file_name, std::ios_base::trunc);
 
@@ -59,3 +60,4 @@ std::vector<std::unique_ptr<TicTacToe>> TicTacToeData::get_games() const
 
 	return boards;
 }
+

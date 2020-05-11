@@ -6,7 +6,7 @@ void TicTacToe::start_game(string first_player)
 {
 	if (first_player != "X" && first_player != "O")
 	{
-		throw Error("\nPlayer must be X or O\n");
+		throw XOException("\nPlayer must be X or O\n");
 	}
 	else
 	{
@@ -19,11 +19,11 @@ void TicTacToe::mark_board(int position)
 {
 	if (position < 1 || position > 9)
 	{
-		throw Error("Position must be 1 to 9\n");
+		throw XOException("Position must be 1 to 9\n");
 	}
 	else if (player == "")
 	{
-		throw Error("Must start game first\n");
+		throw XOException("Must start game first\n");
 	}
 	else
 	{
@@ -117,15 +117,6 @@ bool TicTacToe::check_diagonal_win()
 	return false;
 }
 
-void TicTacToe::display_board() const
-{
-	for (int i = 0; i < 9; i += 3)
-	{
-		cout << pegs[i] << "|" << pegs[i + 1] << "|" << pegs[i + 2] << "\n";
-	}
-
-}
-
 std::ostream & operator<<(std::ostream & out, const TicTacToe& c)
 {
 	out << "\n";
@@ -139,7 +130,7 @@ std::ostream & operator<<(std::ostream & out, const TicTacToe& c)
 std::istream & operator>>(std::istream & in, TicTacToe & c)
 {
 	int board_selection;
-	cout << "Mark the board using 1-9 \n";
+	std::cout << "Mark the board using 1-9 \n";
 	in >> board_selection;
 	c.mark_board(board_selection);
 	return in;
